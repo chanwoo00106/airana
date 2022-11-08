@@ -1,10 +1,7 @@
+import { ClassNameProps } from '@types'
 import { NextPage } from 'next'
 
-interface Props {
-  className: string
-}
-
-const SearchIcon: NextPage<Props> = ({ className }) => {
+const SearchIcon: NextPage<ClassNameProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
