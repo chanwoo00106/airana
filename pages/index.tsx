@@ -6,6 +6,7 @@ import axios from 'axios'
 import { Anywhere, Spot } from '@types'
 import SmallCard from '@components/SmallCard'
 import MediumCard from '@components/MediumCard'
+import LargeCard from '@components/LargeCard'
 
 interface Props {
   spots?: Spot[]
@@ -57,12 +58,19 @@ export default function Home({ spots, anywhere }: Props) {
         <section>
           <h2 className="text-4xl font-semibold py-8">Live Anywhere</h2>
 
-          <div className="flex space-x-3 overflow-scroll">
+          <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
             {anywhere?.map((item, idx) => (
               <MediumCard key={idx} item={item} />
             ))}
           </div>
         </section>
+
+        <LargeCard
+          img="https://links.papareact.com/4cj"
+          title="The Greatest Outdoors"
+          description="Wishlists curated by AirAnA."
+          buttonText="Get Inspired"
+        />
       </main>
     </div>
   )
