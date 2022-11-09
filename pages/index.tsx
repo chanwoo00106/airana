@@ -2,19 +2,30 @@ import Head from 'next/head'
 import Header from '@components/Header'
 import Banner from '@components/Banner'
 import { GetServerSideProps } from 'next'
-import api from 'lib/api'
+import axios from 'axios'
+import { Spot } from '@types'
+import SmallCard from '@components/SmallCard'
 
-export const getServerSideProps: GetServerSideProps = async () => {
+interface Props {
+  spots?: Spot[]
+}
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   try {
-    const { data } = await api.get('/hello')
-    console.log(data)
+    const { data } = await axios.get<Spot[]>('https://links.papareact.com/pyp')
+    return {
+      props: {
+        spots: data
+      }
+    }
   } catch (e) {
-    console.log('error')
+    console.log(e)
   }
   return { props: {} }
 }
 
-export default function Home() {
+export default function Home({ spots }: Props) {
+  console.log(spots)
   return (
     <div>
       <Head>
@@ -28,6 +39,9 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-8 sm:px-16">
         <section className="pt-6">
           <h2 className="text-4xl font-semibold pb-5">Explore Nearby</h2>
+          {spots?.map((spot, idx) => (
+            <SmallCard spot={spot} key={idx} />
+          ))}
         </section>
       </main>
     </div>
