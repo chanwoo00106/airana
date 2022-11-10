@@ -8,11 +8,13 @@ import { useState } from 'react'
 
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
+import Users from '@svg/Users'
 
 const Header = () => {
   const [search, setSearch] = useState<string>('')
   const [startDate, setStartDate] = useState<Date>(new Date())
   const [endDate, setEndDate] = useState<Date>(new Date())
+  const [noOfGuests, setNoOfGuests] = useState<number>(0)
 
   const onChange = (range: RangeKeyDict) => {
     if (range.selection.startDate) setStartDate(range.selection.startDate)
@@ -65,6 +67,29 @@ const Header = () => {
             rangeColors={['#Fd5b61']}
             minDate={new Date()}
           />
+
+          <div className="flex items-center border-b mb-4">
+            <h2 className="text-2xl pl-2 flex-grow font-semibold">
+              Number of Guests
+            </h2>
+            <Users className="h-5" />
+            <input
+              type="number"
+              className="w-12 pl-2 text-lg outline-none text-red-400"
+              value={noOfGuests}
+              onChange={e => setNoOfGuests(+e.target.value)}
+            />
+          </div>
+
+          <div className="flex">
+            <button
+              onClick={() => setSearch('')}
+              className="flex-grow text-gray-500"
+            >
+              Cancel
+            </button>
+            <button className="flex-grow text-red-400">Search</button>
+          </div>
         </div>
       )}
     </header>
