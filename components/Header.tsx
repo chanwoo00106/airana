@@ -3,8 +3,28 @@ import SearchIcon from '@svg/SearchIcon'
 import GlobalAltIcon from '@svg/GlobalAltIcon'
 import UserCircleIcon from '@svg/UserCircleIcon'
 import MenuIcon from '@svg/MenuIcon'
+import { DateRangePicker, RangeKeyDict } from 'react-date-range'
+import { useState } from 'react'
+
+import 'react-date-range/dist/styles.css'
+import 'react-date-range/dist/theme/default.css'
 
 const Header = () => {
+  const [search, setSearch] = useState<string>('')
+  const [startDate, setStartDate] = useState<Date>(new Date())
+  const [endDate, setEndDate] = useState<Date>(new Date())
+
+  const onChange = (range: RangeKeyDict) => {
+    if (range.selection.startDate) setStartDate(range.selection.startDate)
+    if (range.selection.endDate) setEndDate(range.selection.endDate)
+  }
+
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: 'selection'
+  }
+
   return (
     <header className="sticky top-0 left-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10">
       <div className="relative flex items-center h-10 cursor-pointer my-auto">
@@ -19,6 +39,8 @@ const Header = () => {
 
       <div className="flex items-center border-2 rounded-full py-2 md:shadow-sm">
         <input
+          value={search}
+          onChange={e => setSearch(e.target.value)}
           type="text"
           placeholder="Start your search"
           className="pl-5 bg-transparent outline-none flex-grow text-sm text-gray-600 placeholderplaceholder-gray-400"
@@ -34,6 +56,17 @@ const Header = () => {
           <UserCircleIcon className="h-6" />
         </div>
       </div>
+
+      {search && (
+        <div className="flex flex-col col-span-3 mx-auto mt-8">
+          <DateRangePicker
+            ranges={[selectionRange]}
+            onChange={onChange}
+            rangeColors={['#Fd5b61']}
+            minDate={new Date()}
+          />
+        </div>
+      )}
     </header>
   )
 }

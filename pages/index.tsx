@@ -34,7 +34,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 }
 
 export default function Home({ spots, anywhere }: Props) {
-  console.log(spots)
   return (
     <div>
       <Head>
