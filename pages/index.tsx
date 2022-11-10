@@ -7,6 +7,7 @@ import { Anywhere, Spot } from '@types'
 import SmallCard from '@components/SmallCard'
 import MediumCard from '@components/MediumCard'
 import LargeCard from '@components/LargeCard'
+import Footer from '@components/Footer'
 
 interface Props {
   spots?: Spot[]
@@ -72,6 +73,8 @@ export default function Home({ spots, anywhere }: Props) {
           buttonText="Get Inspired"
         />
       </main>
+
+      <Footer />
     </div>
   )
 }
